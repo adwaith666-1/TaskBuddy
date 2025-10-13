@@ -4,23 +4,24 @@ export default function Taskform({addTask}) {
   const [task, setTask] = useState('');
   const [priority, setPriority] = useState('medium');
   const [category, setCategory] = useState('General');
-  
-  const handleSubmit = (e) => {
-      e.preventDefault();
-      addTask({text:task, priority,category,completed:false});
 
-      setTask('');
-      setPriority('medium');
-      setCategory('General');
+  const handlesubmit = (e) => {
+    e.preventDefault();
+    addTask({text: task, priority, category, completed: false});
+
+    //reset
+    setTask('');
+    setPriority("medium");
+    setCategory("General");
   }
 
   return (
-      <form onSubmit={handleSubmit} id="task-form"> 
+      <form onSubmit={handlesubmit} id="task-form"> 
         <div id="inp">
-          <input value={task} type='text' placeholder='Enter the task'
+          <input type='text' placeholder='Enter the task'
+           value={task}
           onChange={(e)=> setTask(e.target.value)}/>
           <button type="submit">Add task</button>
-          {/* <h1>{task}</h1> */}
         </div>
 
       <div id='btns'>
