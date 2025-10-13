@@ -1,32 +1,44 @@
-import React, { useState } from "react";
+import { useState } from "react"
 
-export default function Taskform() {
-    const [task, setTask] = useState("");
-    const [priority, setPriority] = useState('medium');
-    const [category, setCategory] = useState('general');
-    return (
-        <form id="task-form">
-            <div id="inp">
-                <input type="text" placeholder="Enter the task" onChange={(e) => setTask(e.target.value)}/>
-                <span><button type="submit">Add Task</button></span>
-                {/* <h1>{task}</h1> */}
-            </div>
+export default function Taskform({addTask}) {
+  const [task, setTask] = useState('');
+  const [priority, setPriority] = useState('medium');
+  const [category, setCategory] = useState('General');
+  
+  const handleSubmit = (e) => {
+      e.preventDefault();
+      addTask({text:task, priority,category,completed:false});
 
-            <div id="btns">
-                <select name="priority" id="" onChange={(e) => setPriority(e.target.value)}>
-                    <option value="High">High</option>
-                    <option value="Medium">Medium</option>
-                    <option value="low">Low</option>
-                </select>
-                {/* <h1>{priority}</h1> */}
+      setTask('');
+      setPriority('medium');
+      setCategory('General');
+  }
 
-                <select name="Type" id="" onChange={(e) => setCategory(e.target.value)}>
-                    <option value="General">General</option>
-                    <option value="Work">Work</option>
-                    <option value="Personal">Personal</option>
-                </select>
-                {/* <h1>{category}</h1> */}
-            </div>
-        </form>
-    )
+  return (
+      <form onSubmit={handleSubmit} id="task-form"> 
+        <div id="inp">
+          <input value={task} type='text' placeholder='Enter the task'
+          onChange={(e)=> setTask(e.target.value)}/>
+          <button type="submit">Add task</button>
+          {/* <h1>{task}</h1> */}
+        </div>
+
+      <div id='btns'>
+      <select value={priority} onChange={(e)=> setPriority(e.target.value)}>
+        <option value="High">High</option>
+        <option value="Medium">Medium</option>
+        <option value="low">low</option>
+      </select>
+
+      <select value={category} onChange={(e)=>setCategory(e.target.value)}>
+        <option value="general">General</option>
+        <option value="work">work</option>
+        <option value="personal">personal</option>
+      </select>
+      </div>
+
+      {/* <h1>{task} {priority} {category}</h1> */}
+   </form>
+
+  )
 }
